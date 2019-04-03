@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <!-- 点击按钮获取后端接口数据到前端 -->
+    <input type="submit" value="查看图书-前端显示数据" onclick="getBooks()">
+    <!-- 点击按钮跳转到后端路由处，也可查看数据 -->
+    <input type="submit" value="查看图书-跳转到接口路由" onclick="hrefRoute()">
+  </body>
+  <script>
+    // 获取书籍的信息
+    function getBooks() {
+      // 通过ajax发送GET请求
+      $.ajax({
+        url: '/api/books',
+        type: 'get'
+      })
+      // 请求是一个promise 
+      // 成功返回值
+      .then((result) => {
+        // 对json对象进行解析，alert打印出来
+        alert(JSON.stringify(result))
+      })
+      // 捕获请求异常
+      .catch(err => {
+        alert(err)
+      })
+    }
+
+    // 路由跳转
+    function hrefRoute() {
+      location.href = '/api/books'
+    }
+
+  </script>
+</html>
